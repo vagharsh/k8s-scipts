@@ -22,7 +22,7 @@ systemctl start docker
 systemctl enable kubelet && systemctl daemon-reload && systemctl start kubelet
 
 echo "**********************************************************"
-echo "Initializing Kubeadm, it might take a minute or so ......."
+echo "Initializing Kubeadm, it might take a minute or so ......"
 echo "**********************************************************"
 
 kubeadm init --pod-network-cidr=10.244.0.0/16 >> /tmp/kubeadminit.txt
