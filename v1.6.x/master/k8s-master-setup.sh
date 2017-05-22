@@ -48,7 +48,6 @@ IFS=' ' read -r -a ipAddrs <<< `hostname --all-ip-addresses`
 kubekey=`cat /tmp/kubeadminit.txt`
 tokenkey=`echo "${kubekey##*$'\n'}"`
 tokenkey=`echo ${tokenkey:22:24}`
-
 #rm -f /tmp/kubeadminit.txt
 
 echo $tokenkey > /tmp/tokenkey.txt
