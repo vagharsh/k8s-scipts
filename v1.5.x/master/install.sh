@@ -21,12 +21,12 @@ sleep 1
 
 sleep 1
 
-echo "Server will be reboot after 10 seconds for complete setup."
-secs=$((10))
-while [ $secs -gt 0 ]; do
-   echo -ne "$secs\033[0K\r"
-   sleep 1
-   : $((secs--))
-done
+#echo "Server will be reboot after 10 seconds for complete setup."
+#secs=$((10))
+#while [ $secs -gt 0 ]; do
+#   echo -ne "$secs\033[0K\r"
+#   sleep 1
+#   : $((secs--))
+#done
 
 #reboot
