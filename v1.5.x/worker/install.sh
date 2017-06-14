@@ -15,13 +15,13 @@ echo ""
 
 ./prep-disks.sh
 
-sleep 1
-
-./docker-setup.sh
-
 mkdir /etc/docker
 chmod 700 /etc/docker
 cp -rf daemon.json /etc/docker/daemon.json
+
+sleep 1
+
+./docker-setup.sh
 
 sleep 1
 

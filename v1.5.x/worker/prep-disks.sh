@@ -3,12 +3,12 @@
 yum update -y
 
 #Create a physical volume replacing /dev/xvdf with your block device.
-pvcreate /dev/sdb
+pvcreate -ff /dev/sdb1
 
 sleep 5
 
 #Create a ‘docker’ volume group.
-vgcreate docker /dev/sdb
+vgcreate docker /dev/sdb1
 
 sleep 5
 
@@ -28,6 +28,8 @@ rm -rf /var/lib/docker/*
 
 # Copy thinpool profile file
 cp -rf docker-thinpool.profile /etc/lvm/profile/docker-thinpool.profile
+chmod 444 /etc/lvm/profile/docker-thinpool.profile
+
 sleep 1
 #Apply your new lvm profile
 lvchange --metadataprofile docker-thinpool docker/thinpool
