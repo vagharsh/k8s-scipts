@@ -30,6 +30,7 @@ systemctl enable docker && systemctl disable firewalld && systemctl stop firewal
 setenforce 0
 
 rpm -ivh kubelet*.rpm kubernetes-cni*.rpm kubectl*.rpm kubeadm*.rpm
+echo "exclude=kube*">> "/etc/yum.conf"
 
 systemctl enable kubelet && systemctl start kubelet
 
