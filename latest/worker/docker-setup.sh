@@ -13,7 +13,7 @@ gpgcheck=1
 gpgkey=https://yum.dockerproject.org/gpg
 EOF
 
-yum install -y docker-engine-1.12.6
+yum install -y docker-engine-1.13.1
 
 echo "exclude=docker*">> "/etc/yum.conf"
 
