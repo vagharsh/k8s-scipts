@@ -33,7 +33,7 @@ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/k8s.conf
 sysctl net.bridge.bridge-nf-call-iptables=1
 sysctl net.bridge.bridge-nf-call-ip6tables=1
 
-kubeadm init --pod-network-cidr=10.244.0.0/16 >> /tmp/kubeadminit.txt
+kubeadm init --kubernetes-version=v1.6.7 --pod-network-cidr=10.244.0.0/16 >> /tmp/kubeadminit.txt
 
 mkdir -p ~/.kube/
 sudo cp /etc/kubernetes/admin.conf ~/.kube/config

@@ -15,9 +15,7 @@ echo ""
 
 ./prep-disks.sh
 
-mkdir /etc/docker
-chmod 700 /etc/docker
-cp -rf daemon.json /etc/docker/daemon.json
+./prep-daemon.sh
 
 sleep 1
 

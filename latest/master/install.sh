@@ -13,6 +13,8 @@ else
 fi
 echo ""
 
+./prep-daemon.sh
+
 ./docker-setup.sh
 
 sleep 1
