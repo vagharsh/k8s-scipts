@@ -11,10 +11,17 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
         https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
-yum install -y yum-versionlock kubelet kubeadm kubectl kubernetes-cni
+sudo yum install -y kubelet kubeadm kubectl kubernetes-cni 
 
-# Lock the version of these packages so that we don't upgrade them accidentally.
-sudo yum versionlock add kubectl kubelet kubernetes-cni kubeadm
+key="^exclude.*"
+listOfExcludes=`cat /etc/yum.conf | grep "exclude="`
+lengthOfExclude=`echo ${#listOfExcludes}`
+if [ "$lengthOfExclude" -gt 0 ]; then
+	tobeExcluded=$listOfExcludes" kube*"
+	sed -i -e "s~$key~$tobeExcluded~" "/etc/yum.conf"
+else
+	echo "exclude=kube*" >> "/etc/yum.conf"
+fi
 
 sudo setenforce 0
 

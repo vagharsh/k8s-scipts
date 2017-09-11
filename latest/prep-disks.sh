@@ -2,13 +2,15 @@
 
 yum update -y
 
+yum -y -q install lvm2
+
 #Create a physical volume replacing /dev/xvdf with your block device.
-pvcreate -ff /dev/sdb1
+pvcreate -ff /dev/sdb
 
 sleep 5
 
 #Create a ‘docker’ volume group.
-vgcreate docker /dev/sdb1
+vgcreate docker /dev/sdb
 
 sleep 5
 
