@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-ingress-rc
+  namespace: default
+  labels:
+    app: nginx-ingress
+spec:
+  replicas: 1
+  selector:
+    app: nginx-ingress
+  template:
+    metadata:
+      labels:
+        app: nginx-ingress
+    spec:
+      serviceAccountName: nginx-ingress-serviceaccount
+      containers:
+      - image: private.registry.com/nginx/ingress
+        imagePullPolicy: IfNotPresent
+        name: nginx-ingress
+        ports:
+        - containerPort: 80
+          name: "http"
+          protocol: "TCP"
+        # Uncomment the lines below to enable extensive logging and/or customization of
+        # NGINX configuration with configmaps
+        args:
+        - -v=3
+        - -nginx-configmaps=default/nginx-config
+      imagePullSecrets:
+      - name: registry
