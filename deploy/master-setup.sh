@@ -9,7 +9,6 @@ if [ "$EUID" -ne 0 ]; then
 	exit
 else 
 	echo "Running as root" 
-	#read -rsp $'Press any key to continue...\n' -n1 key
 fi
 echo ""
 
@@ -22,7 +21,7 @@ printf '{
         "max-size": "50m",
         "max-file": "5"
     },
-    "bip":"'192.168.${ADDR[3]}.1/24'",
+    "bip":"'10.250.${ADDR[3]}.1/24'",
     "live-restore": true
 }' > daemon.json
 
