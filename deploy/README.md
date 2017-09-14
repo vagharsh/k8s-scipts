@@ -12,4 +12,4 @@
 - Configure the docker `daemon.json` file from inside the `worker-setup.sh`
 
 
-**After the deployment docker and kubernetes will be added to the exclude yum list in `/etc/yum.conf`.
+**After the deployment docker and kubernetes will be added to the exclude yum list in `/etc/yum.conf`.**
