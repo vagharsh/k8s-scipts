@@ -1,13 +1,12 @@
 #!/bin/bash
 
+KUBE_VERSION=${1:-v1.6.7}    
+
 echo "**********************************************************"
 echo "Initializing Kubeadm, it might take a minute or so ......"
 echo "**********************************************************"
 
-sysctl net.bridge.bridge-nf-call-iptables=1
-sysctl net.bridge.bridge-nf-call-ip6tables=1
-
-kubeadm init --kubernetes-version=v1.6.7 --pod-network-cidr=10.244.0.0/16 >> /tmp/kubeadminit.txt
+kubeadm init --kubernetes-version=$KUBE_VERSION --pod-network-cidr=10.244.0.0/16 >> /tmp/kubeadminit.txt
 
 mkdir -p ~/.kube/
 sudo cp /etc/kubernetes/admin.conf ~/.kube/config
@@ -26,7 +25,6 @@ IFS=' ' read -r -a ipAddrs <<< `hostname --all-ip-addresses`
 kubekey=`cat /tmp/kubeadminit.txt`
 tokenkey=`echo "${kubekey##*$'\n'}"`
 tokenkey=`echo ${tokenkey:22:24}`
-#rm -f /tmp/kubeadminit.txt
 
 echo $tokenkey > /tmp/tokenkey.txt
 cp "/etc/kubernetes/admin.conf" /tmp/

@@ -30,7 +30,3 @@ systemctl stop firewalld && systemctl stop iptables-services
 
 systemctl start docker
 systemctl enable kubelet && systemctl daemon-reload && systemctl start kubelet
-
-echo "net.bridge.bridge-nf-call-ip6tables = 1" > /etc/sysctl.d/k8s.conf
-echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.d/k8s.conf
-echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/k8s.conf

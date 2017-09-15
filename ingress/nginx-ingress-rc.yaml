@@ -16,7 +16,7 @@ spec:
     spec:
       serviceAccountName: nginx-ingress-serviceaccount
       containers:
-      - image: private.registry.com/nginx/ingress
+      - image: $PRIVATE_REGISTRY
         imagePullPolicy: IfNotPresent
         name: nginx-ingress
         ports:
@@ -29,4 +29,4 @@ spec:
         - -v=3
         - -nginx-configmaps=default/nginx-config
       imagePullSecrets:
-      - name: registry
+      - name: $REGISTRY_SECRET
