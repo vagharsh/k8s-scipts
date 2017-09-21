@@ -2,9 +2,11 @@
 
 KUBE_VERSION=${1:-v1.6.7}    
 
-echo "**********************************************************"
-echo "Initializing Kubeadm, it might take a minute or so ......"
-echo "**********************************************************"
+cat <<EOF
+**********************************************************
+Initializing Kubeadm, it might take a minute or so ......
+**********************************************************
+EOF
 
 kubeadm init --kubernetes-version=$KUBE_VERSION --pod-network-cidr=10.244.0.0/16 >> /tmp/kubeadminit.txt
 
@@ -30,9 +32,11 @@ echo $tokenkey > /tmp/tokenkey.txt
 cp "/etc/kubernetes/admin.conf" /tmp/
 chmod 666 "/tmp/admin.conf"
 
-echo $'\n ********************************************** '
-echo "Dashboard URL is: https://${ipAddrs[0]}:6443/ui"
-echo "Dashboard Token is: $tokenkey"
-echo $' ********************************************** \n'
+cat <<EOF
+***********************************************
+Dashboard URL is: https://${ipAddrs[0]}:6443/ui
+Dashboard Token is: $tokenkey
+***********************************************
+EOF
 
 watch kubectl get po --all-namespaces
