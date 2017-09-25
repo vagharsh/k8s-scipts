@@ -25,9 +25,4 @@ else
 	echo "exclude=docker*" >> "/etc/yum.conf"
 fi
 
-#regKey="^ExecStart=/usr.*"
-#regValue="ExecStart=/usr/bin/dockerd --exec-opt native.cgroupdriver=systemd" 
-
-#sed -i -e "s~$regKey~$regValue~" "/usr/lib/systemd/system/docker.service"
-
 systemctl enable docker

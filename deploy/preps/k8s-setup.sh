@@ -25,6 +25,11 @@ fi
 
 sudo setenforce 0
 
+regKey="^Environment=\"KUBELET_CGROUP_ARGS.*"
+regValue="Environment=\"KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs" 
+
+sed -i -e "s~$regKey~$regValue~" "/etc/systemd/system/kubelet.service.d/10-kubeadm.conf"
+
 systemctl disable firewalld && systemctl disable iptables-services
 systemctl stop firewalld && systemctl stop iptables-services
 
