@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp ../confs/k8s.conf /etc/sysctl.d/k8s.conf
+cp -f confs/k8s.conf /etc/sysctl.d/k8s.conf

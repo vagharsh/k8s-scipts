@@ -31,7 +31,7 @@ lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/t
 rm -rf /var/lib/docker/*
 
 # Copy thinpool profile file
-cp -rf ../confs/docker-thinpool.profile /etc/lvm/profile/docker-thinpool.profile
+cp -rf confs/docker-thinpool.profile /etc/lvm/profile/docker-thinpool.profile
 chmod 444 /etc/lvm/profile/docker-thinpool.profile
 sleep 1
 #Apply your new lvm profile
