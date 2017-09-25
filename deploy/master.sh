@@ -12,6 +12,10 @@ else
 fi
 echo ""
 
+./preps/prep-os.sh
+
+sleep 1
+
 ./preps/prep-disks.sh $BLOCK_DEVICE
 
 sleep 1
