@@ -1,9 +1,5 @@
 #!/bin/bash
 
-yum update -y
-
-yum install -y yum-utils wget net-tools
-
 cat >/etc/yum.repos.d/docker.repo <<-EOF
 [dockerrepo]
 name=Docker Repository
