@@ -19,8 +19,7 @@ kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Docume
 sleep 2
 kubectl create -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 sleep 2
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-
+kubectl create -f preps/kubernetes-dashboard.yaml
 sleep 2
 
 IFS=' ' read -r -a ipAddrs <<< `hostname --all-ip-addresses`
