@@ -1,7 +1,5 @@
 #!/bin/bash
 
-KUBE_VERSION=${1:-v1.6.7}    
-
 cat <<EOF
 **********************************************************
 Initializing Kubeadm, it might take a minute or so ......

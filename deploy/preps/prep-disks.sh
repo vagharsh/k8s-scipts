@@ -1,7 +1,5 @@
 #!/bin/bash
 
-BLOCK_DEVICE=${1:-/dev/sdb}    
-
 yum -y -q install lvm2
 
 #Create a physical volume replacing /dev/xvdf with your block device.
