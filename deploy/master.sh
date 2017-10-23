@@ -12,6 +12,8 @@ else
 fi
 echo ""
 
+./envvars.sh
+
 ./preps/prep-os.sh
 
 sleep 1
