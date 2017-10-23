@@ -12,7 +12,7 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
 EOF
 
 #sudo yum install -y kubelet kubeadm kubectl kubernetes-cni 
-sudo yum install -y kubelet-1.7.0-0.x86_64 kubeadm-1.7.0-0.x86_64 kubectl-1.7.0-0.x86_64 kubernetes-cni-0.5.1-0.x86_64
+sudo yum install -y kubelet-1.7.5-0.x86_64 kubeadm-1.7.5-0.x86_64 kubectl-1.7.5-0.x86_64 kubernetes-cni-0.5.1-0.x86_64
 
 key="^exclude.*"
 listOfExcludes=`cat /etc/yum.conf | grep "exclude="`
