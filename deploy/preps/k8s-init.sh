@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./envvars.sh
+
 cat <<EOF
 **********************************************************
 Initializing Kubeadm, it might take a minute or so ......

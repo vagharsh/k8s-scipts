@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 export DOCKER_BIP="10.250.250.1/24"
 export BLOCK_DEVICE="/dev/sdb"

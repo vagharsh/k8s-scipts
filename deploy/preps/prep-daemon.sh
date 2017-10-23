@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./envvars.sh
+
 mkdir /etc/docker
 chmod 700 /etc/docker
 
