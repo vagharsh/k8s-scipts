@@ -15,4 +15,4 @@
 # Worker Setup
 - Execute the `worker.sh`
 
-**After the deployment docker and kubernetes will be added to the exclude yum list in `/etc/yum.conf`.**
+**After the deployment Kernel, docker and kubernetes will be added to the exclude yum list in `/etc/yum.conf`.**
