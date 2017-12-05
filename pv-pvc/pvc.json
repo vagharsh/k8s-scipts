@@ -1,0 +1,18 @@
+{
+ "kind": "PersistentVolumeClaim",
+ "apiVersion": "v1",
+ "metadata": {
+   "name": "$FOR_SVC_NAME-pvc",
+   "namespace": "$NAMESPACE"
+ },
+ "spec": {
+   "accessModes": [
+	 "ReadWriteMany"
+   ],
+   "resources": {
+	 "requests": {
+	   "storage": "$STORAGE_SIZE"
+	 }
+   }
+ }
+}
