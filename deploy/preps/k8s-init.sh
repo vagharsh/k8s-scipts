@@ -17,7 +17,7 @@ export KUBECONFIG=~/.kube/config
 
 kubectl create -f preps/kube-flannel-rbac.yml
 sleep 2
-kubectl create -f preps/kube-flannel-legacy.yml
+kubectl create -f preps/kube-flannel.yml
 sleep 2
 kubectl create -f preps/kubernetes-dashboard.yaml
 sleep 2
