@@ -15,9 +15,17 @@ sudo cp /etc/kubernetes/admin.conf ~/.kube/config
 sudo chown $(id -u):$(id -g) ~/.kube/config
 export KUBECONFIG=~/.kube/config
 
+<<<<<<< HEAD
 kubectl create -f preps/kube-flannel-rbac.yml
 sleep 2
 kubectl create -f preps/kube-flannel.yml
+=======
+
+#kubectl create -f preps/kube-flannel-legacy.yml
+#sleep 2
+#kubectl create -f preps/kube-flannel-rbac.yml
+kubectl create -f https://raw.githubusercontent.com/coreos/flannel/cff39eeb3d0dd3710f83b5eba7bde1afa8fa2d46/Documentation/kube-flannel.yml
+>>>>>>> 7894614bec42fea52083ddbe398436ebdd27be16
 sleep 2
 kubectl create -f preps/kubernetes-dashboard.yaml
 sleep 2
