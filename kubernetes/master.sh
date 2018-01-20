@@ -35,3 +35,7 @@ sleep 1
 ./preps/k8s-init.sh
 
 sleep 1
+
+./preps/post-init.sh
+
+sleep 1
