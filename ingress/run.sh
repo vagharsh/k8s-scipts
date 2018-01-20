@@ -24,7 +24,7 @@ echo "[INFO] Creating nginx Ingress replication controller rule"
 envsubst < nginx-ingress-rc.yaml | kubectl create -f -
 
 for i in ${NAMESPACE[@]}; do
-	export namespace=$i
+	export namespace=${i}
 	kubectl create clusterrolebinding all-view --clusterrole view --serviceaccount=$namespace:default
 	read -e -p "Enter ingress host-name for << $namespace >> e.g. kube-demo.test.com : " ingressHost
 	export "$ingressHost"
