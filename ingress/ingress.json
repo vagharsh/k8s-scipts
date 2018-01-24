@@ -1,0 +1,29 @@
+{
+  "kind": "Ingress",
+  "apiVersion": "extensions/v1beta1",
+  "metadata": {
+    "name": "$namespace-svc-ingress",
+    "namespace": "$namespace"
+  },
+  "spec": {
+    "rules": [
+      {
+        "host": "$ingressHost",
+        "http": {
+          "paths": [
+            {
+              "path": "/demo-service/v1/",
+              "backend": {
+                "serviceName": "demoservice-v1",
+                "servicePort": 80
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "status": {
+    "loadBalancer": {}
+  }
+}
