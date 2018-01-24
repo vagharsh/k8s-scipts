@@ -29,5 +29,5 @@ for i in ${NAMESPACE[@]}; do
 	read -e -p "Enter ingress host-name for << $namespace >> e.g. kube-demo.test.com : " ingressHost
 	export "$ingressHost"
 	echo "[INFO] Creating Ingress for $namespace"
-	envsubst < ingress.yaml | kubectl create -f -
+	envsubst < ingress.json | kubectl create -f -
 done
