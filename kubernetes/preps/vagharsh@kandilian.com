@@ -35,7 +35,7 @@ chmod 666 "/tmp/admin.conf"
 cat <<EOF
 ***********************************************
 Dashboard URL is: https://${ipAddrs[0]}:6443/ui
-Dashboard Token is: $tokenkey
+Admin Token is  : $tokenkey
 ***********************************************
 EOF
 
