@@ -22,8 +22,6 @@ sleep 2
 kubectl create -f preps/kubernetes-dashboard.yaml
 sleep 2
 
-IFS=' ' read -r -a ipAddrs <<< `hostname --all-ip-addresses`
-
 kubekey=`cat /tmp/kubeadminit.txt`
 tokenkey=`echo "${kubekey##*$'\n'}"`
 tokenkey=`echo ${tokenkey:22:24}`
@@ -34,7 +32,6 @@ chmod 666 "/tmp/admin.conf"
 
 cat <<EOF
 ***********************************************
-Dashboard URL is : https://${ipAddrs[0]}:6443/ui
 Admin Token is   : $tokenkey
 ***********************************************
 EOF
