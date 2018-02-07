@@ -10,7 +10,7 @@ fi
 
 for i in ${NAMESPACE[@]}; do
     namespace=${i}
-    kubectl create -f ns "$namespace"
+    kubectl create ns "$namespace"
     echo "A ClusterRoleBinding rule is being created with VIEW clusterrole for $namespace"
     kubectl create clusterrolebinding "$namespace-cluster-view-binding" --clusterrole view --serviceaccount="$namespace":default
 done

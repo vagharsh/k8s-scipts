@@ -16,11 +16,11 @@ echo ""
 
 sleep 1
 
-./preps/prep-disks.sh $BLOCK_DEVICE
+./preps/prep-disks.sh
 
 sleep 1
 
-./preps/prep-daemon.sh $DOCKER_BIP
+./preps/prep-daemon.sh
 
 sleep 1
 
@@ -28,7 +28,7 @@ sleep 1
 
 sleep 1
 
-./preps/k8s-setup.sh $KUBE_VERSION
+./preps/k8s-setup.sh
 
 sleep 1
 
@@ -37,5 +37,3 @@ sleep 1
 sleep 1
 
 ./preps/post-init.sh
-
-sleep 1

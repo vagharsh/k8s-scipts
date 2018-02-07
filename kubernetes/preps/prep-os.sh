@@ -1,5 +1,9 @@
 #!/bin/bash
 
+scriptVersion=1.0
+scriptName="OS Preparation script"
+echo "*** You are Running $scriptName, Version : $scriptVersion ***"
+
 key="^exclude.*"
 listOfExcludes=`cat /etc/yum.conf | grep "exclude="`
 lengthOfExclude=`echo ${#listOfExcludes}`

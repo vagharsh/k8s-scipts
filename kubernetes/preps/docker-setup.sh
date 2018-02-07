@@ -1,5 +1,9 @@
 #!/bin/bash
 
+scriptVersion=1.0
+scriptName="Docker Setup script"
+echo "*** You are Running $scriptName, Version : $scriptVersion ***"
+
 cat >/etc/yum.repos.d/docker.repo <<-EOF
 [dockerrepo]
 name=Docker Repository

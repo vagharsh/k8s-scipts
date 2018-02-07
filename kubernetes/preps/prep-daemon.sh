@@ -1,5 +1,9 @@
 #!/bin/bash
 
+scriptVersion=1.0
+scriptName="Docker Daemon Preparation script"
+echo "*** You are Running $scriptName, Version : $scriptVersion ***"
+
 source ./envvars.sh
 
 mkdir /etc/docker

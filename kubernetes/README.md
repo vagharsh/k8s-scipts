@@ -4,9 +4,10 @@
 - Configure the `confs/daemon.json`
 - To customize the disk creation edit the `preps/prep-disks.sh` file.
 - Check the `envars.sh` and configure the following variables.
-	 - DOCKER_BIP : docker bip address.
-	 - BLOCK_DEVICE : the block device that you will setup the devicemapper on it.
-	 - KUBE_VERSION : kubernetes version that you want to initialize with v1.6.7 (default)
+	 - DOCKER_BIP        : Docker bip address.
+	 - BLOCK_DEVICE      : The block device that you will setup the devicemapper on it.
+	 - KUBE_VERSION      : Kubernetes version that you want to initialize with v1.6.7 (default).
+	 - KUBE_ADVERTISE_IP : The IP address the API Server will advertise it's listening on.
 
 # Master Setup
 - Execute the `master.sh`
