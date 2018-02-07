@@ -2,11 +2,14 @@
 
 ## Script for Bootstraping Consul Cluster
 
+scriptVersion=1.0
+scriptName="Consul Master Bootstrap script"
+echo "*** You are Running $scriptName, Version : $scriptVersion ***"
+
 # Input Consul Cluster Size
 
 echo "Enter Consul Cluster Size (Servers Count) and press [ENTER]: "
 read count
-
 
 # Remove Consul Data Directory and create with Selinux flag.
 
@@ -31,8 +34,6 @@ docker run -d -h master --restart=always -v /opt/consul/data:/data:Z \
     -p ${defailt_ip}:8500:8500 \
     -p ${docker_ip}:53:53/udp \
     progrium/consul -server -advertise ${defailt_ip} -bootstrap-expect ${count}
-
-
 
 echo "Master IP is : ${defailt_ip}"
 echo "Cluster Size is ${count}"

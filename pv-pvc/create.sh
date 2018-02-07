@@ -1,5 +1,9 @@
 #!/bin/bash
 
+scriptVersion=1.0
+scriptName="PV-PVC Creation script"
+echo "*** You are Running $scriptName, Version : $scriptVersion ***"
+
 source envvars.sh
 
 usage() { echo "Please fill the NAMESPACE parameter in envvars.sh file" 1>&2; exit 1; }

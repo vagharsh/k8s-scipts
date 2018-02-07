@@ -4,12 +4,15 @@
 
 # Input Consul Cluster Size
 
+scriptVersion=1.0
+scriptName="Consul Node Bootstrap script"
+echo "*** You are Running $scriptName, Version : $scriptVersion ***"
+
 echo "Enter Consul Master IP and press [ENTER]: "
 read master_ip
 
-echo "Enter Node hostname (like node1, node2, node3 ....) and press [ENTER]: "
+echo "Enter Node Hostname (like node1, node2, node3 ....) and press [ENTER]: "
 read node_name
-
 
 # Remove Consul Data Directory and create with Selinux flag.
 
@@ -23,7 +26,6 @@ export default_iface=$(route | grep default | awk '{print $(NF)}')
 export defailt_ip=$(ip addr show dev "${default_iface}" | awk '$1 == "inet" { sub("/.*", "", $2); print $2 }')
 export docker_ip=$(ip addr show dev "docker0" | awk '$1 == "inet" { sub("/.*", "", $2); print $2 }')
 
-
 docker run -d -h ${node_name} --restart=always -v /opt/consul/data:/data:Z \
     -p ${defailt_ip}:8300:8300 \
     -p ${defailt_ip}:8301:8301 \
@@ -34,7 +36,5 @@ docker run -d -h ${node_name} --restart=always -v /opt/consul/data:/data:Z \
     -p ${defailt_ip}:8500:8500 \
     -p ${docker_ip}:53:53/udp \
     progrium/consul -server -advertise ${defailt_ip} -join ${master_ip}
-
-
 
 echo "Master IP is : ${master_ip}"
