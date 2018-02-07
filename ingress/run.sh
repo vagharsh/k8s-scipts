@@ -31,7 +31,7 @@ for i in ${NAMESPACE[@]}; do
 	export namespace=${i}
 	kubectl create clusterrolebinding all-view --clusterrole view --serviceaccount=$namespace:default
 	read -e -p "Enter ingress host-name for << $namespace >> e.g. kube-demo.test.com : " ingressHost
-	
+
 	cp ingress.yaml newIngress.yaml
 	newIngress='"'$ingressHost'"'
 	sed -i -e "s/{{INGRESS}}/$newIngress/g" newIngress.yaml

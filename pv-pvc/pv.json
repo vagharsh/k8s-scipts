@@ -2,7 +2,7 @@
   "apiVersion": "v1",
   "kind": "PersistentVolume",
   "metadata": {
-   "name": "$FOR_SVC_NAME-pv-$NAMESPACE",
+   "name": "$FOR_SVC_NAME-pv-$NAMESPACE"
   },
   "spec": {
     "capacity": {
