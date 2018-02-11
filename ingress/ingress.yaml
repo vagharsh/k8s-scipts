@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: $namespace-svc-ingress
   namespace: $namespace
-  annotations:
-    nginx.org/rewrites: "serviceName=tea-svc rewrite=/"
 spec:
   rules:
   - host: {{INGRESS}}
