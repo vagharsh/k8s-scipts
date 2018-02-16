@@ -27,4 +27,12 @@
 # Worker Setup
 - Execute the `worker.sh`
 
+    ```
+        When not providing an option, all options will selected by default.
+
+        -o | --OS         : Execute the OS Preparation script
+        -d | --docker     : Execute the Docker Setup script
+        -k | --kubernetes : Kubernetes Master Node Setup script
+        -h | --help       : Help Message
+    ``` 
 **After the deployment (kernel, docker and kubernetes) will be added to the exclude yum list in `/etc/yum.conf`.**
