@@ -1,31 +1,86 @@
 #!/bin/bash
 
+OPTS=`getopt -o odkih --long os,docker,kubernetes,init,help -n 'parse-options' -- "$@"`
+
+if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
+
+#echo "$OPTS"
+eval set -- "$OPTS"
+
+OS=false
+DOCKER=false
+KUBERNETES=false
+INIT=false
+HELP=false
+
+if [ $? -eq 0 ]
+  then
+        echo "No arguments supplied, proceeding with full deployment"
+        OS=true
+        DOCKER=true
+        KUBERNETES=true
+        INIT=true
+fi
+
+while true; do
+  case "$1" in
+    -o | --OS         )  OS=true;         shift ;;
+    -d | --docker     )  DOCKER=true;     shift ;;
+    -h | --help       )  HELP=true;       shift ;;
+    -k | --kubernetes )  KUBERNETES=true; shift ;;
+    -i | --init       )  INIT=true;       shift ;;
+    -- ) shift; break ;;
+    *  ) break ;;
+  esac
+done
+
 echo "You are running Latest Kubernetes version Deployment Script as WORKER"
 echo ""
 
-if [ "$EUID" -ne 0 ]; then 
+if [ "$EUID" -ne 0 ]; then
 	echo "Please run as root"
 	read -rsp $'Press any key to Exit...\n' -n1 key
 	exit
-else 
-	echo "Running as root" 
+else
+	echo "Running as root"
 fi
 echo ""
 
-./preps/prep-os.sh
 
-sleep 1
+if [ ${#HELP} -gt 0 ]; then
+    cat <<EOF
+    When not providing an option, all options will selected by default.
 
-./preps/prep-disks.sh
+    -o | --OS         : Execute the OS Preparation script
+    -d | --docker     : Execute the Docker Setup script
+    -k | --kubernetes : Kubernetes Worker Node Setup script
+    -i | --init       : Execute the Kubernetes Master node Initialization script
+    -h | --help       : Help Message
+EOF
+else
+    if [ ${#OS} -gt 0 ]; then
+        ./preps/prep-os.sh
 
-sleep 1
+        sleep 1
+    fi
 
-./preps/prep-daemon.sh
+    if [ ${#DOCKER} -gt 0 ]; then
+        ./preps/prep-disks.sh
 
-sleep 1
+        sleep 1
 
-./preps/docker-setup.sh
+        ./preps/prep-daemon.sh
 
-sleep 1
+        sleep 1
 
-./preps/k8s-setup.sh
+        ./preps/docker-setup.sh
+
+        sleep 1
+    fi
+
+    if [ ${#KUBERNETES} -gt 0 ]; then
+        ./preps/k8s-setup.sh
+
+        sleep 1
+    fi
+fi

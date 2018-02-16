@@ -8,9 +8,20 @@
 	 - BLOCK_DEVICE      : The block device that you will setup the devicemapper on it.
 	 - KUBE_VERSION      : Kubernetes version that you want to initialize with v1.6.7 (default).
 	 - KUBE_ADVERTISE_IP : The IP address the API Server will advertise it's listening on.
+ 	 - NAMESPACE         : kubernetes namespaces that will be created after the deployment.
 
 # Master Setup
 - Execute the `master.sh`
+
+    ```
+        When not providing an option, all options will selected by default.
+
+        -o | --OS         : Execute the OS Preparation script
+        -d | --docker     : Execute the Docker Setup script
+        -k | --kubernetes : Kubernetes Master Node Setup script
+        -i | --init       : Execute the Kubernetes Master node Initialization script
+        -h | --help       : Help Message
+    ``` 
 - Kube-flannel, Kubernetes Dashoboard will be installed as well
 
 # Worker Setup
