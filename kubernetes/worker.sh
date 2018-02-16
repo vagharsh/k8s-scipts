@@ -12,12 +12,11 @@ DOCKER=false
 KUBERNETES=false
 HELP=false
 
-if [ $? -eq 0 ]
-  then
-        echo "No arguments supplied, proceeding with full deployment"
-        OS=true
-        DOCKER=true
-        KUBERNETES=true
+if [ $# -le 1 ]; then
+    echo "No arguments supplied, proceeding with full deployment"
+    OS=true
+    DOCKER=true
+    KUBERNETES=true
 fi
 
 while true; do
