@@ -47,7 +47,7 @@ fi
 echo ""
 
 
-if [ ${#HELP} -gt 0 ]; then
+if [ ${#HELP} = true ]; then
     cat <<EOF
     When not providing an option, all options will selected by default.
 

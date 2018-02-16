@@ -30,24 +30,10 @@ while true; do
     -k | --kubernetes )  KUBERNETES=true; shift ;;
     -i | --init       )  INIT=true;       shift ;;
     -- ) shift; break ;;
-    *  ) break ;;
   esac
 done
 
-echo "You are running Latest Kubernetes version Deployment Script as MASTER"
-echo ""
-
-if [ "$EUID" -ne 0 ]; then 
-	echo "Please run as root"
-	read -rsp $'Press any key to Exit...\n' -n1 key
-	exit
-else 
-	echo "Running as root" 
-fi
-echo ""
-
-
-if [ ${#HELP} -gt 0 ]; then
+if [ ${#HELP} = true ]; then
     cat <<EOF
     When not providing an option, all options will selected by default.
 
@@ -58,6 +44,18 @@ if [ ${#HELP} -gt 0 ]; then
     -h | --help       : Help Message
 EOF
 else
+    echo "You are running Latest Kubernetes version Deployment Script as MASTER"
+    echo ""
+
+    if [ "$EUID" -ne 0 ]; then
+        echo "Please run as root"
+        read -rsp $'Press any key to Exit...\n' -n1 key
+        exit
+    else
+        echo "Running as root"
+    fi
+    echo ""
+
     if [ ${#OS} -gt 0 ]; then
         ./preps/prep-os.sh
 
