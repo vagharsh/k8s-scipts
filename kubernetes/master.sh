@@ -26,14 +26,14 @@ while true; do
   case "$1" in
     -o | --OS         )  OS=true;         shift ;;
     -d | --docker     )  DOCKER=true;     shift ;;
-    -h | --help       )  HELP=true;       shift ;;
     -k | --kubernetes )  KUBERNETES=true; shift ;;
     -i | --init       )  INIT=true;       shift ;;
+    -h | --help       )  HELP=true;       shift ;;
     -- ) shift; break ;;
   esac
 done
 
-if [ ${#HELP} = true ]; then
+if [ "$HELP" = true ]; then
     cat <<EOF
     When not providing an option, all options will selected by default.
 
@@ -56,13 +56,13 @@ else
     fi
     echo ""
 
-    if [ ${#OS} -gt 0 ]; then
+    if [ "$OS" = true ]; then
         ./preps/prep-os.sh
 
         sleep 1
     fi
 
-    if [ ${#DOCKER} -gt 0 ]; then
+    if [ "$DOCKER" = true ]; then
         ./preps/prep-disks.sh
 
         sleep 1
@@ -76,13 +76,13 @@ else
         sleep 1
     fi
 
-    if [ ${#KUBERNETES} -gt 0 ]; then
+    if [ "$KUBERNETES" = true ]; then
         ./preps/k8s-setup.sh
 
         sleep 1
     fi
 
-    if [ ${#INIT} -gt 0 ]; then
+    if [ "$INIT" = true ]; then
         ./preps/k8s-init.sh
 
         sleep 1

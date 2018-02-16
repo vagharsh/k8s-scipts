@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPTS=`getopt -o odkih --long os,docker,kubernetes,init,help -n 'parse-options' -- "$@"`
+OPTS=`getopt -o odkh --long os,docker,kubernetes,help -n 'parse-options' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
 
@@ -10,7 +10,6 @@ eval set -- "$OPTS"
 OS=false
 DOCKER=false
 KUBERNETES=false
-INIT=false
 HELP=false
 
 if [ $? -eq 0 ]
@@ -19,52 +18,48 @@ if [ $? -eq 0 ]
         OS=true
         DOCKER=true
         KUBERNETES=true
-        INIT=true
 fi
 
 while true; do
   case "$1" in
     -o | --OS         )  OS=true;         shift ;;
     -d | --docker     )  DOCKER=true;     shift ;;
-    -h | --help       )  HELP=true;       shift ;;
     -k | --kubernetes )  KUBERNETES=true; shift ;;
-    -i | --init       )  INIT=true;       shift ;;
+    -h | --help       )  HELP=true;       shift ;;
     -- ) shift; break ;;
     *  ) break ;;
   esac
 done
 
-echo "You are running Latest Kubernetes version Deployment Script as WORKER"
-echo ""
-
-if [ "$EUID" -ne 0 ]; then
-	echo "Please run as root"
-	read -rsp $'Press any key to Exit...\n' -n1 key
-	exit
-else
-	echo "Running as root"
-fi
-echo ""
-
-
-if [ ${#HELP} = true ]; then
+if [ "$HELP" = true ]; then
     cat <<EOF
     When not providing an option, all options will selected by default.
 
     -o | --OS         : Execute the OS Preparation script
     -d | --docker     : Execute the Docker Setup script
     -k | --kubernetes : Kubernetes Worker Node Setup script
-    -i | --init       : Execute the Kubernetes Master node Initialization script
     -h | --help       : Help Message
 EOF
 else
-    if [ ${#OS} -gt 0 ]; then
+    echo "You are running Latest Kubernetes version Deployment Script as WORKER"
+    echo ""
+
+    if [ "$EUID" -ne 0 ]; then
+        echo "Please run as root"
+        read -rsp $'Press any key to Exit...\n' -n1 key
+        exit
+    else
+        echo "Running as root"
+    fi
+    echo ""
+
+    if [ "$OS" = true ]; then
         ./preps/prep-os.sh
 
         sleep 1
     fi
 
-    if [ ${#DOCKER} -gt 0 ]; then
+    if [ "$DOCKER" = true ]; then
         ./preps/prep-disks.sh
 
         sleep 1
@@ -78,7 +73,7 @@ else
         sleep 1
     fi
 
-    if [ ${#KUBERNETES} -gt 0 ]; then
+    if [ "$KUBERNETES" = true ]; then
         ./preps/k8s-setup.sh
 
         sleep 1
