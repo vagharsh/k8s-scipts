@@ -28,5 +28,3 @@ spec:
         args:
         - -v=3
         - -nginx-configmaps=default/nginx-config
-      imagePullSecrets:
-      - name: $REGISTRY_SECRET
