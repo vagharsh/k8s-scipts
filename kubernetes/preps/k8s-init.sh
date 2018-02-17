@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.1
+scriptVersion=1.2
 scriptName="Kubernetes Master node Initialization script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
@@ -12,9 +12,16 @@ Initializing Kubeadm, it might take a minute or so ......
 **********************************************************
 EOF
 
-insertKubeVersion = "--kubernetes-version=$KUBE_VERSION"
-kubeAdvertiseIP = "--apiserver-advertise-address=$KUBE_ADVERTISE_IP"
+kubeAdvertiseIP = ""
+insertKubeVersion = ""
 
+if [ ${#KUBE_ADVERTISE_IP} -gt 1 ]; then
+    kubeAdvertiseIP = "--apiserver-advertise-address=$KUBE_ADVERTISE_IP"
+fi
+if [ ${#KUBE_VERSION} -gt 1 ]; then
+    insertKubeVersion = "--kubernetes-version=$KUBE_VERSION"
+fi
+    
 kubeadm init $insertKubeVersion --pod-network-cidr=10.244.0.0/16 $kubeAdvertiseIP >> /tmp/kubeadminit.txt
 
 mkdir -p ~/.kube/
