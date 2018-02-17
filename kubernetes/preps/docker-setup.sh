@@ -17,7 +17,7 @@ wget ${DOCKER_SELINUX_RPM_URL}
 
 # Install Docker and SeLinux
 yum install -y docker-ce-selinux-17.03.2.ce
-yum install -y ${FULLY_QUALIFIED_PACKAGE_NAME}
+yum install -y docker-ce-17.03.2.ce
 
 # Configure Docker
 mkdir -p /etc/docker && chmod 700 /etc/docker
