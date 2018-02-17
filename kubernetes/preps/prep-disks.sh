@@ -24,5 +24,5 @@ lvconvert -y \
 --poolmetadata docker/thinpoolmeta
 
 # Apply profile
-cp -rf docker-thinpool.profile /etc/lvm/profile/docker-thinpool.profile
+cp -rf confs/docker-thinpool.profile /etc/lvm/profile/docker-thinpool.profile
 lvchange --metadataprofile docker-thinpool docker/thinpool
