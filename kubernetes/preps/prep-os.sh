@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.0
+scriptVersion=1.1
 scriptName="OS Preparation script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
@@ -19,3 +19,5 @@ yum -y -q install yum-utils wget net-tools
 
 cp -f confs/k8s.conf /etc/sysctl.d/k8s.conf
 sysctl --system
+
+swapoff -a
