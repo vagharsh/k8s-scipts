@@ -16,12 +16,12 @@ wget ${DOCKER_RPM_URL}
 wget ${DOCKER_SELINUX_RPM_URL}
 
 # Install Docker and SeLinux
-yum install -y ${SELINUX_PACKAGE_NAME}
+yum install -y docker-ce-selinux-17.03.2.ce
 yum install -y ${FULLY_QUALIFIED_PACKAGE_NAME}
 
 # Configure Docker
 mkdir -p /etc/docker && chmod 700 /etc/docker
-envsubst < daemon.json > /etc/docker/daemon.json
+envsubst < confs/daemon.json > /etc/docker/daemon.json
 
 # Enable at boot and start Docker
 systemctl enable docker && systemctl start docker

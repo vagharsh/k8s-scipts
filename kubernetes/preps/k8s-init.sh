@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.2
+scriptVersion=1.1
 scriptName="Kubernetes Master node Initialization script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
@@ -12,17 +12,31 @@ Initializing Kubeadm, it might take a minute or so ......
 **********************************************************
 EOF
 
-kubeAdvertiseIP = ""
-insertKubeVersion = ""
-
-if [ ${#KUBE_ADVERTISE_IP} -gt 1 ]; then
-    kubeAdvertiseIP = "--apiserver-advertise-address=$KUBE_ADVERTISE_IP"
+if [ ${#KUBE_ADVERTISE_IP} -le 0 ]; then
+    if [ ${#KUBE_VERSION} -le 0 ]; then
+        kubeadm init \
+            --pod-network-cidr=10.244.0.0/16 \
+            >> /tmp/kubeadminit.txt
+    else
+        kubeadm init \
+            --kubernetes-version=$KUBE_VERSION \
+            --pod-network-cidr=10.244.0.0/16 \
+            >> /tmp/kubeadminit.txt
+    fi
+else        
+    if [ ${#KUBE_ADVERTISE_IP} -le 0 ]; then
+        kubeadm init \
+            --pod-network-cidr=10.244.0.0/16 \
+            --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
+            >> /tmp/kubeadminit.txt
+    else
+        kubeadm init \
+            --kubernetes-version=$KUBE_VERSION \
+            --pod-network-cidr=10.244.0.0/16 \
+            --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
+            >> /tmp/kubeadminit.txt
+    fi
 fi
-if [ ${#KUBE_VERSION} -gt 1 ]; then
-    insertKubeVersion = "--kubernetes-version=$KUBE_VERSION"
-fi
-    
-kubeadm init $insertKubeVersion --pod-network-cidr=10.244.0.0/16 $kubeAdvertiseIP >> /tmp/kubeadminit.txt
 
 mkdir -p ~/.kube/
 sudo cp /etc/kubernetes/admin.conf ~/.kube/config
