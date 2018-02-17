@@ -66,10 +66,6 @@ else
 
         sleep 1
 
-        ./preps/prep-daemon.sh
-
-        sleep 1
-
         ./preps/docker-setup.sh
 
         sleep 1
