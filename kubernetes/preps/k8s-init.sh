@@ -12,11 +12,10 @@ Initializing Kubeadm, it might take a minute or so ......
 **********************************************************
 EOF
 
-if [ ${#KUBE_ADVERTISE_IP} -le 0 ]; then
-    kubeadm init --pod-network-cidr=10.244.0.0/16 >> /tmp/kubeadminit.txt
-else
-    kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=$KUBE_ADVERTISE_IP >> /tmp/kubeadminit.txt
-fi
+insertKubeVersion = "--kubernetes-version=$KUBE_VERSION"
+kubeAdvertiseIP = "--apiserver-advertise-address=$KUBE_ADVERTISE_IP"
+
+kubeadm init $insertKubeVersion --pod-network-cidr=10.244.0.0/16 $kubeAdvertiseIP >> /tmp/kubeadminit.txt
 
 mkdir -p ~/.kube/
 sudo cp /etc/kubernetes/admin.conf ~/.kube/config

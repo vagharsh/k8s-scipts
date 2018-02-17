@@ -15,7 +15,7 @@ else
 fi
 
 yum update -y
-yum -y -q install yum-utils wget net-tools
+yum -y -q install yum-utils wget net-tools device-mapper-persistent-data lvm2
 
 cp -f confs/k8s.conf /etc/sysctl.d/k8s.conf
 sysctl --system

@@ -4,16 +4,12 @@ scriptVersion=1.1
 scriptName="Docker Setup script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
-yum install -y docker
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
 
-key="^exclude.*"
-listOfExcludes=`cat /etc/yum.conf | grep "exclude="`
-lengthOfExclude=`echo ${#listOfExcludes}`
-if [ "$lengthOfExclude" -gt 0 ]; then
-	tobeExcluded=$listOfExcludes" docker*"
-	sed -i -e "s~$key~$tobeExcluded~" "/etc/yum.conf"
-else
-	echo "exclude=docker*" >> "/etc/yum.conf"
-fi
+sudo yum install docker-ce
+
+sudo yum-config-manager --disable docker-ce
 
 systemctl enable docker && systemctl start docker

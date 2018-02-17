@@ -1,12 +1,10 @@
 #!/bin/bash
 
-scriptVersion=1.0
+scriptVersion=1.1
 scriptName="Docker Disks Preparation script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
 source ./envvars.sh
-
-yum -y -q install lvm2
 
 #Create a physical volume replacing /dev/xvdf with your block device.
 pvcreate -ff $BLOCK_DEVICE
