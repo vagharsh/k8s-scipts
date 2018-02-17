@@ -45,7 +45,7 @@ export KUBECONFIG=~/.kube/config
 
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
 sleep 1
-kubectl apply -f preps/dashboard_rbac.yaml
+kubectl apply -f confs/dashboard_rbac.yaml
 sleep 1
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 sleep 1
