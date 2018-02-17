@@ -6,6 +6,9 @@
     },
     "bip":"$DOCKER_BIP",
     "live-restore": true,
+    "exec-opts": [
+        "native.cgroupdriver=vgroupfs"
+    ],
     "storage-driver": "devicemapper",
     "storage-opts": [
         "dm.thinpooldev=/dev/mapper/docker-thinpool",
