@@ -1,4 +1,4 @@
-# Deploy Docker 1.12.6 with Kubernetes 1.7.5 version
+# Deploy Docker-CE 17.03.2 with Latest Kubernetes version
 
 # Configuration
 - Configure the `confs/daemon.json`
@@ -21,6 +21,7 @@
         -k | --kubernetes : Kubernetes Master Node Setup script
         -i | --init       : Execute the Kubernetes Master node Initialization script
         -h | --help       : Help Message
+        
     ``` 
 - Kube-flannel, Kubernetes Dashoboard will be installed as well
 
@@ -34,5 +35,6 @@
         -d | --docker     : Execute the Docker Setup script
         -k | --kubernetes : Kubernetes Master Node Setup script
         -h | --help       : Help Message
+
     ``` 
 **After the deployment (kernel, docker and kubernetes) will be added to the exclude yum list in `/etc/yum.conf`.**
