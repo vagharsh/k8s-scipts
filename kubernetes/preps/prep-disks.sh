@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.1
+scriptVersion=1.2
 scriptName="Docker Disks Preparation script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 

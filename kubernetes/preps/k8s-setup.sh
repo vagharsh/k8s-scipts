@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.1
+scriptVersion=1.2
 scriptName="Kubernetes (Master / Worker) Node Setup script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
