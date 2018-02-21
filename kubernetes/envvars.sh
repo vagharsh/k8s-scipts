@@ -5,3 +5,4 @@ export BLOCK_DEVICE="/dev/sdb"
 export KUBE_VERSION="v1.6.7"
 export KUBE_ADVERTISE_IP="" # The IP address the API Server will advertise it's listening on.
 export NAMESPACE=("demo" "prod")
+export TIMEZONE="Asia/Yerevan"

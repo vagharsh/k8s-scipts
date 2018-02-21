@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.1
+scriptVersion=1.2
 scriptName="OS Preparation script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
@@ -15,9 +15,17 @@ else
 fi
 
 yum update -y
-yum -y -q install yum-utils wget net-tools device-mapper-persistent-data lvm2
+yum install -y -q wget net-tools vim ntpdate device-mapper-persistent-data lvm2 yum-utils git
+
+# Set timezone
+timedatectl set-timezone ${TIMEZONE}
 
 cp -f confs/k8s.conf /etc/sysctl.d/k8s.conf
 sysctl --system
 
+# disable SeLinux
+sed -i --follow-symlinks 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
+
+# Disable swap
 swapoff -a
+sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
