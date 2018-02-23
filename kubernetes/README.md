@@ -16,7 +16,7 @@
     ```
         When not providing an option, all options will selected by default.
 
-        -o | --OS         : Execute the OS Preparation script
+        -o | --os         : Execute the OS Preparation script
         -d | --docker     : Execute the Docker Setup script
         -k | --kubernetes : Kubernetes Master Node Setup script
         -i | --init       : Execute the Kubernetes Master node Initialization script
@@ -31,7 +31,7 @@
     ```
         When not providing an option, all options will selected by default.
 
-        -o | --OS         : Execute the OS Preparation script
+        -o | --os         : Execute the OS Preparation script
         -d | --docker     : Execute the Docker Setup script
         -k | --kubernetes : Kubernetes Master Node Setup script
         -h | --help       : Help Message
