@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.2
+scriptVersion=1.3
 scriptName="Kubernetes (Master / Worker) Node Setup script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
@@ -17,19 +17,12 @@ EOF
 setenforce 0
 yum install -y kubelet kubeadm kubectl
 
-key="^exclude.*"
-listOfExcludes=`cat /etc/yum.conf | grep "exclude="`
-lengthOfExclude=`echo ${#listOfExcludes}`
-if [ "$lengthOfExclude" -gt 0 ]; then
-	tobeExcluded=$listOfExcludes" kube*"
-	sed -i -e "s~$key~$tobeExcluded~" "/etc/yum.conf"
-else
-	echo "exclude=kube*" >> "/etc/yum.conf"
-fi
+# Disable Kubernetes updates
+yum-config-manager --disable kubernetes
 
+# change the cgroup driver settings to cgroupfs to match Docker
 regKey="^Environment=\"KUBELET_CGROUP_ARGS.*"
 regValue="Environment=\"KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs\"" 
-
 sed -i -e "s~$regKey~$regValue~" "/etc/systemd/system/kubelet.service.d/10-kubeadm.conf"
 
 systemctl stop firewalld && systemctl disable firewalld

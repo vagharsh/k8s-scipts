@@ -2,7 +2,7 @@
 
 scriptVersion=1.1
 scriptName="Ingress Deployment script"
-echo "*** You are Running $scriptName, Version : $scriptVersion ***"\
+echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
 source envvars.sh
 
