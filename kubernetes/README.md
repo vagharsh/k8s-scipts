@@ -6,9 +6,10 @@
 - Check the `envars.sh` and configure the following variables.
 	 - DOCKER_BIP        : Docker bip address.
 	 - BLOCK_DEVICE      : The block device that you will setup the devicemapper on it.
-	 - KUBE_VERSION      : Kubernetes version that you want to initialize with v1.6.7 (default).
+	 - KUBE_VERSION      : Kubernetes version that you want to initialize with.
 	 - KUBE_ADVERTISE_IP : The IP address the API Server will advertise it's listening on.
  	 - NAMESPACE         : kubernetes namespaces that will be created after the deployment.
+     - DEFAULT_NIC       : Default Network Interface that will be used by Kubernetes e.g. eth0.
 
 # Master Setup
 - Execute the `master.sh`
