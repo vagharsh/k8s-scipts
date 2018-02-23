@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.2
+scriptVersion=1.3
 scriptName="Kubernetes Master node Initialization script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
@@ -13,29 +13,29 @@ Initializing Kubeadm, it might take a minute or so ......
 EOF
 
 if [ ${#KUBE_ADVERTISE_IP} -le 0 ]; then
-    if [ ${#KUBE_VERSION} -le 0 ]; then
-        kubeadm init \
-            --pod-network-cidr=10.244.0.0/16 \
-            >> /tmp/kubeadminit.txt
-    else
-        kubeadm init \
-            --kubernetes-version=$KUBE_VERSION \
-            --pod-network-cidr=10.244.0.0/16 \
-            >> /tmp/kubeadminit.txt
-    fi
-else        
-    if [ ${#KUBE_ADVERTISE_IP} -le 0 ]; then
-        kubeadm init \
-            --pod-network-cidr=10.244.0.0/16 \
-            --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
-            >> /tmp/kubeadminit.txt
-    else
-        kubeadm init \
-            --kubernetes-version=$KUBE_VERSION \
-            --pod-network-cidr=10.244.0.0/16 \
-            --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
-            >> /tmp/kubeadminit.txt
-    fi
+    KUBE_ADVERTISE_IP=$(ip addr show ${DEFAULT_NIC} | grep -Po 'inet \K[\d.]+')
+fi
+
+openssl genrsa -out /tmp/ca.key 2048
+openssl req -x509 -new -nodes -key /tmp/ca.key -subj "/CN=${KUBE_ADVERTISE_IP}" -days 3650 -out /tmp/ca.crt
+
+# Setup certificates
+cp -rf /tmp/ca.crt /etc/kubernetes/pki/ca.crt
+cp -rf /tmp/ca.key /etc/kubernetes/pki/ca.key
+cp -rf /tmp/ca.crt /etc/pki/ca-trust/source/anchors/
+update-ca-trust
+
+if [ ${#KUBE_VERSION} -le 0 ]; then
+    kubeadm init \
+        --pod-network-cidr=10.244.0.0/16 \
+        --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
+        >> /tmp/kubeadminit.txt
+else
+    kubeadm init \
+        --kubernetes-version=$KUBE_VERSION \
+        --pod-network-cidr=10.244.0.0/16 \
+        --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
+        >> /tmp/kubeadminit.txt
 fi
 
 mkdir -p ~/.kube/
