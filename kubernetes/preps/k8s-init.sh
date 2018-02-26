@@ -44,14 +44,5 @@ sudo cp /etc/kubernetes/admin.conf ~/.kube/config
 sudo chown $(id -u):$(id -g) ~/.kube/config
 export KUBECONFIG=~/.kube/config
 
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
-sleep 1
-kubectl apply -f confs/dashboard_rbac.yaml
-sleep 1
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-sleep 1
-
 cp "/etc/kubernetes/admin.conf" /tmp/
 chmod 666 "/tmp/admin.conf"
-
-watch kubectl get po --all-namespaces
