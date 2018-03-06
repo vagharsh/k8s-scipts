@@ -1,8 +1,8 @@
 #!/bin/bash
 
-scriptVersion=1.1
-scriptName="Ingress Deployment script"
-echo "*** You are Running $scriptName, Version : $scriptVersion ***"\
+scriptVersion=1.2
+scriptName="Kubernetes Ingress Deployment script"
+echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
 source envvars.sh
 
@@ -12,24 +12,41 @@ if [ -z "$NAMESPACE" ]; then
   usage
 fi
 
-echo "[INFO] Creating nginx Ingress controller rbac rule"
-kubectl create -f nginx-ingress-controller-rbac.yml
+# Mandatory commands
+echo "[INFO] Creating Kubernetes Ingress Namespace"
+curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/namespace.yaml \
+    | kubectl apply -f -
 
-echo "[INFO] Creating nginx Ingress default backend rule"
-kubectl create -f default-backend.yaml 
+echo "[INFO] Creating Kubernetes Ingress Default-Backend"
+curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/default-backend.yaml \
+    | kubectl apply -f -
 
-echo "[INFO] Creating nginx config map rule"
-kubectl create -f nginx-config.yaml
+echo "[INFO] Creating Kubernetes Ingress Config Map"
+kubectl apply -f config-map.yaml
+
+echo "[INFO] Creating Kubernetes Ingress TCP Service Config Map"
+curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/tcp-services-configmap.yaml \
+    | kubectl apply -f -
+
+echo "[INFO] Creating Kubernetes Ingress UDP Service Config Map"
+curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/udp-services-configmap.yaml \
+    | kubectl apply -f -
+
+
+# Deployment with RBAC roles
+echo "[INFO] Creating Kubernetes Ingress RBAC roles"
+curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/rbac.yaml \
+    | kubectl apply -f -
+
+echo "[INFO] Creating Kubernetes Ingress Deployment"
+curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/with-rbac.yaml \
+    | kubectl apply -f -
 
 echo "[INFO] Creating nginx Ingress service rule"
-kubectl create -f nginx-ingress-svc.yaml
-
-echo "[INFO] Creating nginx Ingress replication controller rule"
-envsubst < nginx-ingress-rc.yaml | kubectl create -f -
+kubectl create -f ingress-svc.yaml
 
 for i in ${NAMESPACE[@]}; do
 	export namespace=${i}
-	kubectl create clusterrolebinding all-view --clusterrole view --serviceaccount=$namespace:default
 	read -e -p "Enter ingress host-name for << $namespace >> e.g. kube-demo.test.com : " ingressHost
 
 	cp ingress.yaml newIngress.yaml
