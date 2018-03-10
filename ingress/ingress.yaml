@@ -4,11 +4,11 @@ metadata:
   name: $namespace-svc-ingress
   namespace: $namespace
   annotations:
-  nginx.ingress.kubernetes.io/rewrite-target: /
-  nginx.ingress.kubernetes.io/configuration-snippet: |
-    more_set_headers "proxy-buffers: 16 8k";
-    more_set_headers "proxy-max-temp-file-size: 0";
-    more_set_headers "proxy-pass-headers: header-a,header-b";
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "proxy-buffers: 16 8k";
+      more_set_headers "proxy-max-temp-file-size: 0";
+      more_set_headers "proxy-pass-headers: header-a,header-b";
 spec:
   rules:
   - host: {{INGRESS}}
