@@ -8,6 +8,8 @@ source ./envvars.sh
 
 usage() { echo "Please fill the NAMESPACE parameter in envvars.sh file" 1>&2; exit 1; }
 
+watch kubectl get po --all-namespaces
+
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 sleep 1
 kubectl apply -f confs/dashboard_rbac.yaml

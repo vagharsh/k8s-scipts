@@ -38,7 +38,7 @@ EOF
 sysctl --system
 
 # disable SeLinux
-#sed -i --follow-symlinks 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
+sed -i --follow-symlinks 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
 setenforce 0
 
 # Disable swap

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-scriptVersion=1.2
+scriptVersion=1.3
 scriptName="Docker Setup script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 

@@ -6,5 +6,5 @@ export KUBE_VERSION=""
 export KUBE_ADVERTISE_IP=""
 export KUBE_ADVERTISE_NAME="foo.bar.com"
 export NAMESPACE=("demo" "prod")
-export DEFAULT_NIC="eth0"
 export TIMEZONE="Asia/Yerevan"
+export DEFAULT_NIC="eth0"

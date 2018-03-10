@@ -7,7 +7,7 @@
 	 - DOCKER_BIP          : [string] Docker bip address.
 	 - BLOCK_DEVICE        : [string] The block device that you will setup the devicemapper on it.
 	 - KUBE_VERSION        : [string] Kubernetes version that you want to initialize with.
-     - DEFAULT_NIC         : [string] Default Network Interface that will be used by Kubernetes e.g. eth0.
+     - DEFAULT_NIC         : [string] Network Interface that will be used by Kubernetes e.g. eth0.
 	 - KUBE_ADVERTISE_IP   : [string] The IP address on which to advertise the apiserver to members of the cluster.
      - KUBE_ADVERTISE_NAME : [string] The DNS Name which will be used in the certificate creation DNS name.
  	 - NAMESPACE           : [array] Kubernetes namespaces that will be created after the deployment.
