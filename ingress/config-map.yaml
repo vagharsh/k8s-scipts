@@ -1,0 +1,17 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration
+  namespace: ingress-nginx
+  labels:
+    app: ingress-nginx
+data:
+  hide-headers: "header-a,header-b"
+  proxy-connect-timeout: "10"
+  proxy-read-timeout: "100"
+  proxy-body-size: "100m"
+  server-name-hash-bucket-size: "64"
+  server-name-hash-max-size: "1024"
+  proxy-buffering: "off"
+  proxy-buffer-size: "2k"
+  log-format-upstream: '{ "@timestamp": "$time_iso8601", "@version": "1", "clientip": "$remote_addr", "tag": "ingress", "remote_user": "$remote_user", "bytes": $bytes_sent, "duration": $request_time, "status": $status, "request": "$request_uri", "urlpath": "$uri", "urlquery": "$args", "method": "$request_method", "referer": "$http_referer", "useragent": "$http_user_agent", "software": "nginx", "version": "$nginx_version", "host": "$host", "upstream": "$upstream_addr", "upstream-status": "$upstream_status" }'
