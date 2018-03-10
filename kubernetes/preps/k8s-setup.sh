@@ -18,7 +18,7 @@ setenforce 0
 yum install -y kubelet kubeadm kubectl
 
 # Disable Kubernetes updates
-yum-config-manager --disable kubernetes
+yum-config-manager --disable kubernetes >> /dev/null
 
 # change the cgroup driver settings to cgroupfs to match Docker
 regKey="^Environment=\"KUBELET_CGROUP_ARGS.*"

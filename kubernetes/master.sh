@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OPTS=`getopt -o odkih --long os,docker,kubernetes,init,help -n 'parse-options' -- "$@"`
+OPTS=`getopt -o odkiph --long os,docker,kubernetes,init,post,help -n 'parse-options' -- "$@"`
 
 if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
 
@@ -11,6 +11,7 @@ OS=false
 DOCKER=false
 KUBERNETES=false
 INIT=false
+POST=false
 HELP=false
 
 if [ $# -le 1 ]; then
@@ -19,6 +20,7 @@ if [ $# -le 1 ]; then
     DOCKER=true
     KUBERNETES=true
     INIT=true
+    POST=true
 fi
 
 while true; do
@@ -27,6 +29,7 @@ while true; do
     -d | --docker     )  DOCKER=true;     shift ;;
     -k | --kubernetes )  KUBERNETES=true; shift ;;
     -i | --init       )  INIT=true;       shift ;;
+    -p | --post       )  POST=true;       shift ;;
     -h | --help       )  HELP=true;       shift ;;
     -- ) shift; break ;;
   esac
@@ -34,12 +37,13 @@ done
 
 if [ "$HELP" = true ]; then
     cat <<EOF
-    When not providing an option, (o,d,k,i) options will selected by default.
+    When not providing an option, (o,d,k,i,p) options will selected by default.
 
-    -o | --os         : Execute the OS Preparation script
-    -d | --docker     : Execute the Docker Setup script
-    -k | --kubernetes : Kubernetes Master Node Setup script
-    -i | --init       : Execute the Kubernetes Master node Initialization script
+    -o | --os         : Execute OS Preparation script
+    -d | --docker     : Execute Docker Setup script
+    -k | --kubernetes : Execute Kubernetes Master Node Setup script
+    -i | --init       : Execute Kubernetes Master node Initialization script
+    -p | --post       : Execute Post Initialization script
     -h | --help       : Help Message
 
 EOF
@@ -58,33 +62,32 @@ else
 
     if [ "$OS" = true ]; then
         ./preps/prep-os.sh
-
         sleep 1
     fi
 
     if [ "$DOCKER" = true ]; then
         ./preps/prep-disks.sh
-
         sleep 1
 
         ./preps/docker-setup.sh
-
         sleep 1
     fi
 
     if [ "$KUBERNETES" = true ]; then
+        ./preps/gen-certs.sh
+        sleep 1
+        
         ./preps/k8s-setup.sh
-
         sleep 1
     fi
 
     if [ "$INIT" = true ]; then
         ./preps/k8s-init.sh
-
         sleep 1
+    fi
 
+    if [ "$POST" = true ]; then
         ./preps/post-init.sh
-
         sleep 1
     fi
 fi

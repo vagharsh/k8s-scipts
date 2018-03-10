@@ -1,14 +1,16 @@
 #!/bin/bash
 
 scriptVersion=1.3
-scriptName="Docker Disks Preparation script"
+scriptName="Post initialization script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
 source ./envvars.sh
 
 usage() { echo "Please fill the NAMESPACE parameter in envvars.sh file" 1>&2; exit 1; }
 
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+watch kubectl get po --all-namespaces
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 sleep 1
 kubectl apply -f confs/dashboard_rbac.yaml
 sleep 1

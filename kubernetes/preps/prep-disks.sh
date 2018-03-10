@@ -7,10 +7,10 @@ echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 source ./envvars.sh
 
 # Create PV
-pvcreate ${BLOCK_DEVICE}
+pvcreate -ff ${BLOCK_DEVICE}
 
 # Create VG
-vgcreate docker ${BLOCK_DEVICE}
+vgcreate -ff docker ${BLOCK_DEVICE}
 
 # Create LVs
 lvcreate --wipesignatures y -n thinpool docker -l 95%VG

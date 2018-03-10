@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e
 
-scriptVersion=1.2
+scriptVersion=1.3
 scriptName="Docker Setup script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
+
+source ./envvars.sh
 
 # Environment Variables
 export FULLY_QUALIFIED_PACKAGE_NAME='docker-ce-17.03.2.ce-1.el7.centos.x86_64.rpm'

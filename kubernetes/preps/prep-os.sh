@@ -14,6 +14,8 @@ else
 	echo "exclude=kernel*" >> "/etc/yum.conf"
 fi
 
+source ./envvars.sh
+
 yum update -y
 yum install -y -q wget net-tools vim ntpdate device-mapper-persistent-data lvm2 yum-utils git
 
@@ -37,6 +39,7 @@ sysctl --system
 
 # disable SeLinux
 sed -i --follow-symlinks 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
+setenforce 0
 
 # Disable swap
 swapoff -a
