@@ -1,28 +1,37 @@
 #!/bin/bash
+set -e
 
-scriptVersion=1.0
+scriptVersion=1.2
 scriptName="Docker Setup script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
-cat >/etc/yum.repos.d/docker.repo <<-EOF
-[dockerrepo]
-name=Docker Repository
-baseurl=https://yum.dockerproject.org/repo/main/centos/7
-enabled=1
-gpgcheck=1
-gpgkey=https://yum.dockerproject.org/gpg
-EOF
+source ./envvars.sh
 
-yum install -y docker-engine-1.12.6
+# Environment Variables
+export FULLY_QUALIFIED_PACKAGE_NAME='docker-ce-17.03.2.ce-1.el7.centos.x86_64.rpm'
+export SELINUX_PACKAGE_NAME="docker-ce-selinux-17.03.2.ce-1.el7.centos.noarch.rpm"
+export DOCKER_RPM_URL="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/${FULLY_QUALIFIED_PACKAGE_NAME}"
+export DOCKER_SELINUX_RPM_URL="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/${SELINUX_PACKAGE_NAME}"
 
-key="^exclude.*"
-listOfExcludes=`cat /etc/yum.conf | grep "exclude="`
-lengthOfExclude=`echo ${#listOfExcludes}`
-if [ "$lengthOfExclude" -gt 0 ]; then
-	tobeExcluded=$listOfExcludes" docker*"
-	sed -i -e "s~$key~$tobeExcluded~" "/etc/yum.conf"
-else
-	echo "exclude=docker*" >> "/etc/yum.conf"
-fi
+cwdiS=`echo $PWD`
+cd /tmp/
 
-systemctl enable docker
+# Dowload Docker rpm
+wget ${DOCKER_RPM_URL}
+wget ${DOCKER_SELINUX_RPM_URL}
+
+# Install Docker and SeLinux
+yum install -y ${SELINUX_PACKAGE_NAME}
+yum install -y ${FULLY_QUALIFIED_PACKAGE_NAME}
+
+cd $cwdiS
+# Configure Docker
+mkdir -p /etc/docker && chmod 700 /etc/docker
+envsubst < confs/daemon.json > /etc/docker/daemon.json
+
+# Enable at boot and start Docker
+systemctl enable docker && systemctl start docker
+
+# Remove docker installer
+rm -rf /tmp/${FULLY_QUALIFIED_PACKAGE_NAME}
+rm -rf /tmp/${SELINUX_PACKAGE_NAME}

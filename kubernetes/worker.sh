@@ -21,7 +21,7 @@ fi
 
 while true; do
   case "$1" in
-    -o | --OS         )  OS=true;         shift ;;
+    -o | --os         )  OS=true;         shift ;;
     -d | --docker     )  DOCKER=true;     shift ;;
     -k | --kubernetes )  KUBERNETES=true; shift ;;
     -h | --help       )  HELP=true;       shift ;;
@@ -32,12 +32,13 @@ done
 
 if [ "$HELP" = true ]; then
     cat <<EOF
-    When not providing an option, all options will selected by default.
+    When not providing an option, (o,d,k) options will selected by default.
 
-    -o | --OS         : Execute the OS Preparation script
+    -o | --os         : Execute the OS Preparation script
     -d | --docker     : Execute the Docker Setup script
     -k | --kubernetes : Kubernetes Worker Node Setup script
     -h | --help       : Help Message
+
 EOF
 else
     echo "You are running Latest Kubernetes version Deployment Script as WORKER"

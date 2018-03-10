@@ -1,15 +1,16 @@
 {
+    "live-restore": true,
     "log-driver": "json-file",
     "log-opts": {
-        "max-size": "50m",
-        "max-file": "5"
+      "max-size": "25m",
+      "max-file": "3"
     },
-    "bip":"$DOCKER_BIP",
-    "live-restore": true,
+    "exec-opts": ["native.cgroupdriver=cgroupfs"],
+    "bip": "$DOCKER_BIP",
     "storage-driver": "devicemapper",
     "storage-opts": [
-        "dm.thinpooldev=/dev/mapper/docker-thinpool",
-        "dm.use_deferred_removal=true",
-        "dm.use_deferred_deletion=true"
+    "dm.thinpooldev=/dev/mapper/docker-thinpool",
+    "dm.use_deferred_removal=true",
+    "dm.use_deferred_deletion=true"
     ]
 }

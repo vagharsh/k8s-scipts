@@ -1,14 +1,17 @@
-# Deploy Docker 1.12.6 with Kubernetes 1.7.5 version
+# Deploy Docker-CE 17.03.2 with Latest Kubernetes version
 
 # Configuration
 - Configure the `confs/daemon.json`
 - To customize the disk creation edit the `preps/prep-disks.sh` file.
-- Check the `envars.sh` and configure the following variables.
-	 - DOCKER_BIP        : Docker bip address.
-	 - BLOCK_DEVICE      : The block device that you will setup the devicemapper on it.
-	 - KUBE_VERSION      : Kubernetes version that you want to initialize with v1.6.7 (default).
-	 - KUBE_ADVERTISE_IP : The IP address the API Server will advertise it's listening on.
- 	 - NAMESPACE         : kubernetes namespaces that will be created after the deployment.
+- Check the `envvars.sh` and configure the following variables.
+	 - DOCKER_BIP          : [string] Docker bip address.
+	 - BLOCK_DEVICE        : [string] The block device that you will setup the devicemapper on it.
+	 - KUBE_VERSION        : [string] Kubernetes version that you want to initialize with.
+     - DEFAULT_NIC         : [string] Default Network Interface that will be used by Kubernetes e.g. eth0.
+	 - KUBE_ADVERTISE_IP   : [string] The IP address on which to advertise the apiserver to members of the cluster.
+     - KUBE_ADVERTISE_NAME : [string] The DNS Name which will be used in the certificate creation DNS name.
+ 	 - NAMESPACE           : [array] Kubernetes namespaces that will be created after the deployment.
+ 	 - TIMEZONE            : [string] Timezone of the server which will be setup while OS prep.
 
 # Master Setup
 - Execute the `master.sh`
@@ -16,11 +19,13 @@
     ```
         When not providing an option, all options will selected by default.
 
-        -o | --OS         : Execute the OS Preparation script
+        -o | --os         : Execute the OS Preparation script
         -d | --docker     : Execute the Docker Setup script
         -k | --kubernetes : Kubernetes Master Node Setup script
         -i | --init       : Execute the Kubernetes Master node Initialization script
+        -p | --post       : Execute Post Initialization script
         -h | --help       : Help Message
+        
     ``` 
 - Kube-flannel, Kubernetes Dashoboard will be installed as well
 
@@ -30,9 +35,10 @@
     ```
         When not providing an option, all options will selected by default.
 
-        -o | --OS         : Execute the OS Preparation script
+        -o | --os         : Execute the OS Preparation script
         -d | --docker     : Execute the Docker Setup script
         -k | --kubernetes : Kubernetes Master Node Setup script
         -h | --help       : Help Message
+
     ``` 
-**After the deployment (kernel, docker and kubernetes) will be added to the exclude yum list in `/etc/yum.conf`.**
+**After the deployment (kernel) will be added to the exclude yum list in `/etc/yum.conf`.**
