@@ -5,6 +5,7 @@
 - To customize the disk creation edit the `preps/prep-disks.sh` file.
 - Check the `envvars.sh` and configure the following variables.
 	 - DOCKER_BIP          : [string] Docker bip address.
+     - POD_CIDR            : [string] Pods CIDR, if provided Flannel will be used for networking, if not Weave will be used.
 	 - BLOCK_DEVICE        : [string] The block device that you will setup the devicemapper on it.
 	 - KUBE_VERSION        : [string] Kubernetes version that you want to initialize with.
      - DEFAULT_NIC         : [string] Network Interface that will be used by Kubernetes e.g. eth0.

@@ -1,17 +1,22 @@
 #!/bin/bash
 
-scriptVersion=1.2
+scriptVersion=1.3
 scriptName="OS Preparation script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
 key="^exclude.*"
+package2BeExcluded="kernel"
 listOfExcludes=`cat /etc/yum.conf | grep "exclude="`
 lengthOfExclude=`echo ${#listOfExcludes}`
 if [ "$lengthOfExclude" -gt 0 ]; then
-	tobeExcluded=$listOfExcludes" kernel*"
-	sed -i -e "s~$key~$tobeExcluded~" "/etc/yum.conf"
+	keyExclude=`echo "$listOfExcludes" | grep "$package2BeExcluded"`
+	keyExcludeLen=`echo ${#keyExclude}`
+	if [ "$keyExcludeLen" -eq 0 ]; then
+		tobeExcluded=$listOfExcludes" $package2BeExcluded*"
+		sed -i -e "s~$key~$tobeExcluded~" "/etc/yum.conf"
+	fi
 else
-	echo "exclude=kernel*" >> "/etc/yum.conf"
+	echo "exclude=$package2BeExcluded*" >> "/etc/yum.conf"
 fi
 
 source ./envvars.sh
@@ -33,6 +38,8 @@ systemctl disable firewalld && systemctl stop firewalld
 cat <<EOF >  /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv4.ip_forward = 1
 EOF
 sysctl --system
