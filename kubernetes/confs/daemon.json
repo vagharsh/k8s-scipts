@@ -9,8 +9,8 @@
     "bip": "$DOCKER_BIP",
     "storage-driver": "devicemapper",
     "storage-opts": [
-    "dm.thinpooldev=/dev/mapper/docker-thinpool",
-    "dm.use_deferred_removal=true",
-    "dm.use_deferred_deletion=true"
+      "dm.thinpooldev=/dev/mapper/docker-thinpool",
+      "dm.use_deferred_removal=true",
+      "dm.use_deferred_deletion=true"
     ]
 }
