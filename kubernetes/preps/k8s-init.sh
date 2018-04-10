@@ -1,10 +1,6 @@
 #!/bin/bash
 
-<<<<<<< HEAD
 scriptVersion=1.6
-=======
-scriptVersion=1.4
->>>>>>> d07f7a0e7b2395b7d67349a164625954ed394054
 scriptName="Kubernetes Single Master node Initialization script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
@@ -26,7 +22,6 @@ update-ca-trust
 
 if [ ${#KUBE_VERSION} -le 0 ]; then
     if [ ${#KUBE_ADVERTISE_IP} -le 0 ]; then
-<<<<<<< HEAD
         if [ ${#POD_CIDR} -le 0 ]; then
             kubeadm init >> /tmp/kubeadminit.txt
         else
@@ -63,29 +58,6 @@ else
                 --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
                 >> /tmp/kubeadminit.txt
         fi
-=======
-        kubeadm init \
-            --pod-network-cidr=10.244.0.0/16 \
-            >> /tmp/kubeadminit.txt
-    else
-        kubeadm init \
-            --pod-network-cidr=10.244.0.0/16 \
-            --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
-            >> /tmp/kubeadminit.txt
-    fi
-else
-    if [ ${#KUBE_ADVERTISE_IP} -le 0 ]; then
-        kubeadm init \
-            --kubernetes-version=$KUBE_VERSION \
-            --pod-network-cidr=10.244.0.0/16 \
-            >> /tmp/kubeadminit.txt
-    else 
-        kubeadm init \
-            --kubernetes-version=$KUBE_VERSION \
-            --pod-network-cidr=10.244.0.0/16 \
-            --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
-            >> /tmp/kubeadminit.txt
->>>>>>> d07f7a0e7b2395b7d67349a164625954ed394054
     fi
 fi
 
