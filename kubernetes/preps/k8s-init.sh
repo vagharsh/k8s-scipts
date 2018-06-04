@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptVersion=1.6
+scriptVersion=1.7
 scriptName="Kubernetes Single Master node Initialization script"
 echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
@@ -20,6 +20,8 @@ chmod 644 /etc/kubernetes/pki/*.crt
 cp -f certificates/ca.crt /etc/pki/ca-trust/source/anchors/
 update-ca-trust
 
+export interfaceIP=$(ip addr show dev "${DEFAULT_NIC}" | awk '$1 == "inet" { sub("/.*", "", $2); print $2 }')
+
 if [ ${#KUBE_VERSION} -le 0 ]; then
     if [ ${#KUBE_ADVERTISE_IP} -le 0 ]; then
         if [ ${#POD_CIDR} -le 0 ]; then
@@ -30,11 +32,11 @@ if [ ${#KUBE_VERSION} -le 0 ]; then
     else
         if [ ${#POD_CIDR} -le 0 ]; then
             kubeadm init \
-            --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
+            --apiserver-advertise-address=$KUBE_ADVERTISE_IP --apiserver-cert-extra-sans=$interfaceIP\
             >> /tmp/kubeadminit.txt
         else
             kubeadm init --pod-network-cidr=$POD_CIDR \
-            --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
+            --apiserver-advertise-address=$KUBE_ADVERTISE_IP --apiserver-cert-extra-sans=$interfaceIP\
             >> /tmp/kubeadminit.txt
         fi        
     fi
@@ -50,12 +52,12 @@ else
     else
         if [ ${#POD_CIDR} -le 0 ]; then
             kubeadm init --kubernetes-version=$KUBE_VERSION \
-                --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
+                --apiserver-advertise-address=$KUBE_ADVERTISE_IP --apiserver-cert-extra-sans=$interfaceIP\
                 >> /tmp/kubeadminit.txt
         else
             kubeadm init --kubernetes-version=$KUBE_VERSION \
                 --pod-network-cidr=$POD_CIDR \
-                --apiserver-advertise-address=$KUBE_ADVERTISE_IP \
+                --apiserver-advertise-address=$KUBE_ADVERTISE_IP --apiserver-cert-extra-sans=$interfaceIP\
                 >> /tmp/kubeadminit.txt
         fi
     fi

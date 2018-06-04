@@ -22,7 +22,7 @@ yum-config-manager --disable kubernetes >> /dev/null
 
 # change the cgroup driver settings to cgroupfs to match Docker
 regKey="^Environment=\"KUBELET_CGROUP_ARGS.*"
-regValue="Environment=\"KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs\"" 
+regValue="Environment=\"KUBELET_CGROUP_ARGS=--cgroup-driver=systemd\"" 
 sed -i -e "s~$regKey~$regValue~" "/etc/systemd/system/kubelet.service.d/10-kubeadm.conf"
 
 systemctl daemon-reload && systemctl enable kubelet && systemctl start kubelet

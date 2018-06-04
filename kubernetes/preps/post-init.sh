@@ -6,6 +6,10 @@ echo "*** You are Running $scriptName, Version : $scriptVersion ***"
 
 source ./envvars.sh
 
+if [ -z "$NAMESPACE" ]; then
+  usage
+fi
+
 usage() { echo "Please fill the NAMESPACE parameter in envvars.sh file" 1>&2; exit 1; }
 
 watch kubectl get po --all-namespaces
@@ -27,10 +31,6 @@ kubectl apply -f confs/dashboard_rbac.yaml
 sleep 1
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 sleep 1
-
-if [ -z "$NAMESPACE" ]; then
-  usage
-fi
 
 for i in ${NAMESPACE[@]}; do
     namespace=${i}
